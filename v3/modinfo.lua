@@ -10,7 +10,7 @@ description = [[
 Allows characters to swim, highly customizable.
             ]]
 author = "ProrokDX"
-version = "1.0.0"
+version = "1.0.1"
 
 
 api_version = 10
