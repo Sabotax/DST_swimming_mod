@@ -77,26 +77,9 @@ local function OnWater(inst)
     return inst:HasTag("swimming") and inst._wurt_swimmer:value() and inst:HasTag("jump_swim")
 end
 
-local function GetSwimString(inst, key)
-    local char = inst.prefab
-
-    local t = GLOBAL.STRINGS.CHARACTERS[char]
-    if t and t[key] then
-        return t[key]
-    end
-
-    return GLOBAL.STRINGS.CHARACTERS.GENERIC[key]
-end
-
 AddModRPCHandler("swimmod", "toggle_swim", function(player)
-	if player._wurt_tryingswim:value() then
-        player._wurt_tryingswim:set(false)
-        player.components.talker:Say(GetSwimString(player, "ANNOUNCE_NOSWIM"))
-        return
-    end
-
 	if player._wurt_tryingswim:value() == false then
-		player.components.talker:Say(GetSwimString(player, "ANNOUNCE_PRESWIM"))
+		player.components.talker:Say(GLOBAL.GetString(player, "ANNOUNCE_PRESWIM"))
 		player._wurt_tryingswim:set(true)
 		player:DoTaskInTime(3,function(player)
 				
@@ -105,7 +88,7 @@ AddModRPCHandler("swimmod", "toggle_swim", function(player)
 					local x, y, z = player.Transform:GetWorldPosition()
 					local land_in_water = (GLOBAL.TheWorld.Map:IsOceanAtPoint(x, y, z) and GLOBAL.TheWorld.Map:GetPlatformAtPoint(x, z) == nil)
 					if(land_in_water == false) then 
-						player.components.talker:Say(GetSwimString(player, "ANNOUNCE_DONESWIM"))
+						player.components.talker:Say(GLOBAL.GetString(player, "ANNOUNCE_DONESWIM"))
 						player._wurt_tryingswim:set(false)
 					else
 						player:DoTaskInTime(1,function(player)
@@ -120,7 +103,7 @@ AddModRPCHandler("swimmod", "toggle_swim", function(player)
 					local x, y, z = player.Transform:GetWorldPosition()
 					local land_in_water = (GLOBAL.TheWorld.Map:IsOceanAtPoint(x, y, z) and GLOBAL.TheWorld.Map:GetPlatformAtPoint(x, z) == nil)
 					if(land_in_water == false) then 
-						player.components.talker:Say(GetSwimString(player, "ANNOUNCE_NOSWIM"))
+						player.components.talker:Say(GLOBAL.GetString(player, "ANNOUNCE_NOSWIM"))
 						player._wurt_tryingswim:set(false)
 					else
 						player:DoTaskInTime(1,function(player)

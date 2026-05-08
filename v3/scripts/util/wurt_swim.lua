@@ -5,17 +5,6 @@ local jumpdur = 20
 local drop_handitem_wurt = GetModConfigData("drop_handitem_wurt")
 local drop_handitem_not_wurt = GetModConfigData("drop_handitem_not_wurt")
 
-local function GetSwimString(inst, key)
-    local char = inst.prefab
-
-    local t = GLOBAL.STRINGS.CHARACTERS[char]
-    if t and t[key] then
-        return t[key]
-    end
-
-    return GLOBAL.STRINGS.CHARACTERS.GENERIC[key]
-end
-
 --Remove tools from hands when swimming
 local function drop(inst)
     local should_drop =
@@ -33,7 +22,7 @@ local function drop(inst)
 		local item = inst.components.inventory:Unequip(GLOBAL.EQUIPSLOTS.HANDS)
 		inst.components.inventory:DropItem(item)
 		inst.SoundEmitter:PlaySound("dontstarve/common/tool_slip")
-		inst.components.talker:Say(GetSwimString(inst, "ANNOUNCE_SWIMTOOL"))
+		inst.components.talker:Say(GLOBAL.GetString(inst, "ANNOUNCE_SWIMTOOL"))
 		inst.AnimState:ClearOverrideSymbol("swap_object")
 	end
 end
